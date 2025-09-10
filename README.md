@@ -8,42 +8,37 @@ By generating realistic synthetic data, storing it in a structured PostgreSQL da
 
 
 ```mermaid
-  flowchart LR
-  direction LR
-
-  %% Data generation (files)
-  SDG[/Synthetic Data Generator\n(python, Faker/ipynb)/] --> CSV[/Raw CSVs & Exported Files/]
+flowchart TB
+  %% Data generation
+  SDG[Synthetic Data Generator - Python, Faker] --> CSV[Raw CSVs]
 
   %% ETL & cleaning
-  CSV --> ETL[/"Python ETL & Cleaning\n(scripts: new_entry, generator)"/]
-  ETL --> SQL[SQL_Scripts\n(table_entries, data_checks, data_cleaning.sql)]
+  CSV --> ETL[ETL & Cleaning - Python scripts]
+  ETL --> SQL[SQL Scripts - table entries, data checks, cleaning]
 
-  %% Database (cylinder)
+  %% Database
   SQL --> DB[(PostgreSQL Database)]
 
-  %% Downstream: dashboards + ML + monitoring
-  DB -->|Scheduled refresh| PBIX[Power BI Dashboards\n(.pbix / Live connection)]
-  DB --> ML[ML Sales Forecasting\n(Prophet / sklearn)]
-  ML -->|Predictions written back| DB
+  %% Dashboards & ML
+  DB --> PBIX[Power BI Dashboards]
+  DB --> ML[ML Sales Forecasting - Prophet]
 
-  %% Monitoring & alerts
-  DB --> MON[Monitoring & Alerting\n(python monitoring_alert_system.py)]
-  MON --> AI((AI Summary\n(OpenAI)) )
-  AI --> EMAIL[Email Alerts to Executives / Stakeholders]
+  ML --> DB
+
+  %% Monitoring & Alerts
+  DB --> MON[Monitoring & Alerting - Python]
+  MON --> AI[AI Summary - OpenAI]
+  AI --> EMAIL[Email Alerts]
   MON --> EMAIL
 
-  %% Automation scheduler
-  SCHED[(Automated Run Scripts / Scheduler\n(batch / cron / Windows Task Scheduler)] --> SDG
+  %% Automation
+  SCHED[Automated Run Scripts / Scheduler] --> SDG
   SCHED --> MON
   SCHED --> ML
 
-  %% Visuals / artifacts
-  PBIX --> SNAP[Snapshots / Guide Pages / Screenshots]
-  SNAP --> README[README / Documentation]
-
-  %% Optional: manual / ad-hoc exploration
-  Analyst[(Analysts / BI Users)] --> PBIX
-  Analyst --> README
+  %% Documentation
+  PBIX --> SNAP[Snapshots / Screenshots]
+  SNAP --> README[README & Documentation]
   ```
 
 ---
