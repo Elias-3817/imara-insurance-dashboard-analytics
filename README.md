@@ -33,7 +33,7 @@ By generating realistic synthetic data, storing it in a structured PostgreSQL da
   MON --> EMAIL
 
   %% Automation scheduler
-  SCHED[(Automated Run Scripts / Scheduler\n(batch / cron / Windows Task Scheduler)] --> SDG
+  SCHED[(Automated Run Scripts / Scheduler\n(batch / cron / Windows Task Scheduler)] --> SDG)
   SCHED --> MON
   SCHED --> ML
 
