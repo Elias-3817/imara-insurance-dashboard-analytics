@@ -1,48 +1,95 @@
 # 🚀 Automated BI & Monitoring System for Insurance Analytics  
 
-Insurance & SACCOs are drowning in spreadsheets. Reports take days, are prone to errors, and rarely give leaders the real-time visibility they need. This project proves how any mid-sized financial institution can move from manual reporting chaos → automated, insight-driven decision making. By combining PostgreSQL, Python ETL, Power BI dashboards, and automated anomaly alerts, it replicates exactly what a real insurance broker or SACCO would deploy — giving executives instant clarity on revenue, risk, and performance while cutting reporting time from days to minutes.
+## Imara Insurance Analytics – Case Study
 
-## 📌 Project Overview  
-This project demonstrates how to build a **complete end-to-end BI solution** — starting from **synthetic data generation**, storing and cleaning it in a **PostgreSQL database**, building **interactive dashboards in Power BI**, and automating a **monitoring + email alerting system**.  
+This project simulates an end-to-end analytics system for a fictional insurance company called Imara. The aim is to demonstrate how data pipelines, machine learning, and interactive dashboards can power real-time decision-making in insurance operations.
 
-The goal: replicate what a **SACCO, bank, or insurance broker companies** would need in real life — moving from messy manual spreadsheets to a **centralized, automated, and insight-driven system.**  
+By generating realistic synthetic data, storing it in a structured PostgreSQL database, and layering on Power BI dashboards, Python ETL, and automated anomaly alerts, the system replicates both the challenges and solutions that insurers face daily. The outcome is a production-style analytics and monitoring ecosystem that executives could use to gain instant clarity on revenue, risk, and performance while cutting reporting time from days to minutes.
+
+
+```mermaid
+  flowchart LR
+  direction LR
+
+  %% Data generation (files)
+  SDG[/Synthetic Data Generator\n(python, Faker/ipynb)/] --> CSV[/Raw CSVs & Exported Files/]
+
+  %% ETL & cleaning
+  CSV --> ETL[/"Python ETL & Cleaning\n(scripts: new_entry, generator)"/]
+  ETL --> SQL[SQL_Scripts\n(table_entries, data_checks, data_cleaning.sql)]
+
+  %% Database (cylinder)
+  SQL --> DB[(PostgreSQL Database)]
+
+  %% Downstream: dashboards + ML + monitoring
+  DB -->|Scheduled refresh| PBIX[Power BI Dashboards\n(.pbix / Live connection)]
+  DB --> ML[ML Sales Forecasting\n(Prophet / sklearn)]
+  ML -->|Predictions written back| DB
+
+  %% Monitoring & alerts
+  DB --> MON[Monitoring & Alerting\n(python monitoring_alert_system.py)]
+  MON --> AI((AI Summary\n(OpenAI)) )
+  AI --> EMAIL[Email Alerts to Executives / Stakeholders]
+  MON --> EMAIL
+
+  %% Automation scheduler
+  SCHED[(Automated Run Scripts / Scheduler\n(batch / cron / Windows Task Scheduler)] --> SDG
+  SCHED --> MON
+  SCHED --> ML
+
+  %% Visuals / artifacts
+  PBIX --> SNAP[Snapshots / Guide Pages / Screenshots]
+  SNAP --> README[README / Documentation]
+
+  %% Optional: manual / ad-hoc exploration
+  Analyst[(Analysts / BI Users)] --> PBIX
+  Analyst --> README
+  ```
 
 ---
 
 ## 📂 Repository Structure
 
-imara-insurance-dashboard-analytics/
-│── Dashboard/ # Power BI dashboards (.pbix files, visuals)
+```plaintext
+📂 imara-insurance-dashboard-analytics/
+├── Dashboard/                # Power BI dashboards (.pbix files, visuals)
+├── Data/                     # Synthetic & processed datasets
+├── Documentation/            # Project documentation (markdown guides)
+│   ├── 01_Synthetic_Data_Generator_Documentation.md
+│   ├── 02_Database_design.md
+│   ├── 02_SQL_Schema_Data_Cleaning.md
+│   ├── 03_Dashboard_design.md
+│   ├── 04_Monitor_&_Alert_System.md
+│   ├── 05_Data_Dictionary.md
 │
-│── Data/ # Synthetic & processed datasets
+├── Scripts/                  # Automation & ETL scripts
+│   ├── Python_Scripts/
+│   │   ├── 01_Synthetic_data_generator.ipynb
+│   │   ├── 02_New_entry_data_generator.py
+│   │   ├── 03_monitoring_alert_system.py
+│   │   ├── 04_ML_Sales_Prediction.ipynb
+│   │
+│   ├── SQL_Scripts/
+│   │   ├── 01_Table_Entries.sql
+│   │   ├── 02_Data_Checks.sql
+│   │   ├── 03_Data_Cleaning.sql
+│   │
+│   └── Automated_run_script.bat
 │
-│── Documentation/ # Project documentation (markdown guides)
-│ ├── synthetic_data_generator.md
-│ ├── database_design.md
-│ ├── sql_schema_data_cleaning.md
-│ ├── dashboard_design.md
-│ ├── monitor_&_alert_system.md
-│ ├── data_dictionary.md
+├── Snapshots/                # Dashboard screenshots & demo images
+│   ├── Executive-insights.png
+│   ├── Agent_Analysis.png
+│   ├── Policy_Analysis.png
+│   ├── Relationships_and_schema.png
+│   └── Guide_&_Insights.png
 │
-│── Scripts/ # Automation & ETL scripts
-│ ├── Python_Scripts/
-│ │ ├── synthetic_data_generator.py
-│ │ ├── new_entry_data_generator.py
-│ │ ├── monitoring_alert_system.py
-│ │ ├── ml_sales_prediction.py
-│ │
-│ ├── SQL_Scripts/
-│ │ ├── table_entries.sql
-│ │ ├── data_checks.sql
-│ │ ├── data_cleaning.sql
-│ │
-│ ├── Automated_Run_Scripts/ # Batch / cron / scheduled tasks
-│
-│── Snapshots/ # Dashboard screenshots, demo images
-│
-│── LICENSE # License file
-│── README.md # Project overview & documentation
-│── requirements.txt # Python dependencies
+├── .gitignore
+├── LICENSE
+├── README.md
+└── requirements.txt
+
+```
+
 
 
 ## 🏗️ System Architecture  
@@ -156,12 +203,16 @@ DATABASE_URL=postgresql+psycopg2://user:password@localhost:5432/dbname
 
 📷 Demo Screenshots
 
+**Executive Summary**
 ![Dashboard Overview](Snapshots/Executive-insights.png) 
 
+**Agent performance**
 ![Agent Performance Breakdown](Snapshots/Agent_Analysis.png)
 
+**Help and guide page**
 ![Dashboard help and guide page](Snapshots/Guide_&_Insights.png)
 
+**Automated Email Alert example**
 ![Automated Email Alert Example](Snapshots/E-mail_alerts.png)
 
 

@@ -81,20 +81,23 @@ Output:
 CSV files saved in /data
 
 Example:
+
 ../data/clients.csv
+
 ../data/agents.csv
+
 ../data/policies.csv
+
 ../data/sales.csv
+
 ../data/claims.csv
+
 ../data/monthly_metrics.csv
+
 ../data/agent_performance.csv
 
-ClientID, Name, DOB, Age, Gender, Location, JoinDate, Tier ,LifetimeValue, RiskProfile
+![Sample data](../Snapshots/Sample_data.png)
 
-230, Phillip Wanjiku, 1974-05-02,51, Male,Nakuru CBD, 2024-10-01, Bronze, 95931.97, Medium
-1142, Michael Korir, 1972-03-17,53, Female,Naivasha, 2022-10-16, Silver, 294805.35, Medium
-814, Faith Kosgey, 2001-01-07,24,Male ,Nakuru CBD, 2023-05-26, Platinum, 1000951.98, Low
-1985, Joyce Muchiri, 2000-12-30,24,Female, Nakuru CBD, 2022-12-19, Gold, 331669.1, Low
 
 Next Steps
 Scale data volume (e.g., 10k+ rows).
