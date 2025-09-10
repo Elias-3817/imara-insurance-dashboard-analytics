@@ -87,7 +87,6 @@ By generating realistic synthetic data, storing it in a structured PostgreSQL da
 ├── LICENSE
 ├── README.md
 └── requirements.txt
-
 ```
 
 
